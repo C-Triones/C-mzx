@@ -1,0 +1,176 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        07/05/2010  14:59:40  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ADC.obj TO ADC RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  ADC.obj (ADC)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  ADC (ADC)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0030H     UNIT         ?PR?MAIN?ADC
+            CODE    0033H     001BH     UNIT         ?PR?_DELAY?ADC
+            CODE    004EH     0015H     UNIT         ?PR?INITADC?ADC
+            CODE    0063H     0014H     UNIT         ?PR?_GETADCRESULT?ADC
+            CODE    0077H     000FH     UNIT         ?PR?INITUART?ADC
+            CODE    0086H     000DH     UNIT         ?PR?_SHOWRESULT?ADC
+            CODE    0093H     000CH     UNIT         ?C_C51STARTUP
+            CODE    009FH     0008H     UNIT         ?PR?_SENDDATA?ADC
+
+
+
+OVERLAY MAP OF MODULE:   ADC (ADC)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?ADC
+
+?PR?MAIN?ADC                   -----    -----
+  +--> ?PR?INITUART?ADC
+  +--> ?PR?INITADC?ADC
+  +--> ?PR?_SHOWRESULT?ADC
+
+?PR?INITADC?ADC                -----    -----
+  +--> ?PR?_DELAY?ADC
+
+?PR?_SHOWRESULT?ADC            0008H    0001H
+  +--> ?PR?_SENDDATA?ADC
+  +--> ?PR?_GETADCRESULT?ADC
+
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:59:40  PAGE 2
+
+
+
+SYMBOL TABLE OF MODULE:  ADC (ADC)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADC
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0091H         PUBLIC        P1M0
+  D:0092H         PUBLIC        P1M1
+  D:0090H         PUBLIC        P1
+  C:0086H         PUBLIC        _ShowResult
+  D:00C6H         PUBLIC        ADC_RES
+  B:0098H.1       PUBLIC        TI
+  C:0003H         PUBLIC        main
+  D:00C5H         PUBLIC        ADC_CONTR
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  C:0077H         PUBLIC        InitUart
+  D:0089H         PUBLIC        TMOD
+  D:008DH         PUBLIC        TH1
+  C:0063H         PUBLIC        _GetADCResult
+  C:0033H         PUBLIC        _Delay
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  C:004EH         PUBLIC        InitADC
+  C:009FH         PUBLIC        _SendData
+  -------         PROC          MAIN
+  C:0003H         LINE#         44
+  C:0003H         LINE#         45
+  C:0003H         LINE#         46
+  C:0006H         LINE#         47
+  C:0009H         LINE#         48
+  C:0009H         LINE#         49
+  C:0009H         LINE#         50
+  C:000EH         LINE#         51
+  C:0013H         LINE#         52
+  C:0018H         LINE#         53
+  C:001DH         LINE#         54
+  C:0022H         LINE#         55
+  C:0027H         LINE#         56
+  C:002CH         LINE#         57
+  C:0031H         LINE#         58
+  -------         ENDPROC       MAIN
+  -------         PROC          _SHOWRESULT
+  D:0008H         SYMBOL        ch
+  C:0086H         LINE#         64
+  C:0088H         LINE#         65
+  C:0088H         LINE#         66
+  C:008BH         LINE#         67
+  -------         ENDPROC       _SHOWRESULT
+  -------         PROC          _GETADCRESULT
+  D:0007H         SYMBOL        ch
+  C:0063H         LINE#         76
+  C:0063H         LINE#         77
+  C:0063H         LINE#         78
+  C:0068H         LINE#         79
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:59:40  PAGE 3
+
+
+  C:0069H         LINE#         80
+  C:006AH         LINE#         81
+  C:006BH         LINE#         82
+  C:006CH         LINE#         83
+  C:0071H         LINE#         84
+  C:0074H         LINE#         86
+  C:0076H         LINE#         87
+  -------         ENDPROC       _GETADCRESULT
+  -------         PROC          INITUART
+  C:0077H         LINE#         92
+  C:0077H         LINE#         93
+  C:0077H         LINE#         94
+  C:007AH         LINE#         95
+  C:007DH         LINE#         96
+  C:0083H         LINE#         97
+  C:0085H         LINE#         98
+  -------         ENDPROC       INITUART
+  -------         PROC          INITADC
+  C:004EH         LINE#         103
+  C:004EH         LINE#         104
+  C:004EH         LINE#         105
+  C:0057H         LINE#         106
+  C:005AH         LINE#         107
+  C:005DH         LINE#         108
+  -------         ENDPROC       INITADC
+  -------         PROC          _SENDDATA
+  D:0007H         SYMBOL        dat
+  C:009FH         LINE#         116
+  C:009FH         LINE#         117
+  C:009FH         LINE#         118
+  C:00A2H         LINE#         119
+  C:00A4H         LINE#         120
+  C:00A6H         LINE#         121
+  -------         ENDPROC       _SENDDATA
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        n
+  -------         DO            
+  D:0004H         SYMBOL        x
+  -------         ENDDO         
+  C:0033H         LINE#         126
+  C:0033H         LINE#         127
+  C:0033H         LINE#         130
+  C:003DH         LINE#         131
+  C:003DH         LINE#         132
+  C:0041H         LINE#         133
+  C:004DH         LINE#         134
+  C:004DH         LINE#         135
+  -------         ENDPROC       _DELAY
+  -------         ENDMOD        ADC
+
+Program Size: data=10.0 xdata=0 code=167
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

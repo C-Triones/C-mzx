@@ -1,0 +1,159 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        07/05/2010  14:42:48  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ADC.obj TO ADC RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  ADC.obj (ADC)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  ADC (ADC)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            REG     0008H     0008H     ABSOLUTE     "REG BANK 1"
+            DATA    0010H     0001H     UNIT         ?DT?ADC
+            IDATA   0011H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001BH     UNIT         ?PR?_DELAY?ADC
+            CODE    001EH     000BH     UNIT         ?PR?MAIN?ADC
+                    0029H     0002H                  *** GAP ***
+            CODE    002BH     0003H     ABSOLUTE     
+            CODE    002EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    00BAH     0037H     UNIT         ?PR?ADC_ISR?ADC
+            CODE    00F1H     0013H     UNIT         ?PR?INITADC?ADC
+            CODE    0104H     000FH     UNIT         ?PR?INITUART?ADC
+            CODE    0113H     0008H     UNIT         ?PR?_SENDDATA?ADC
+            CODE    011BH     0004H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   ADC (ADC)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?PR?ADC_ISR?ADC
+  +--> ?PR?_SENDDATA?ADC
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?ADC
+  +--> ?C_INITSEG
+
+?PR?MAIN?ADC
+  +--> ?PR?INITUART?ADC
+  +--> ?PR?INITADC?ADC
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:42:48  PAGE 2
+
+
+
+?PR?INITADC?ADC
+  +--> ?PR?_DELAY?ADC
+
+
+
+SYMBOL TABLE OF MODULE:  ADC (ADC)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADC
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A8H         PUBLIC        IE
+  D:00BDH         PUBLIC        ADC_RES
+  B:0098H.1       PUBLIC        TI
+  C:001EH         PUBLIC        main
+  D:00BCH         PUBLIC        ADC_CONTR
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  C:0104H         PUBLIC        InitUart
+  D:0089H         PUBLIC        TMOD
+  D:0010H         PUBLIC        ch
+  D:008DH         PUBLIC        TH1
+  C:0003H         PUBLIC        _Delay
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  C:00BAH         PUBLIC        adc_isr
+  D:009DH         PUBLIC        P1ASF
+  C:00F1H         PUBLIC        InitADC
+  C:0113H         PUBLIC        _SendData
+  -------         PROC          MAIN
+  C:001EH         LINE#         43
+  C:001EH         LINE#         44
+  C:001EH         LINE#         45
+  C:0021H         LINE#         46
+  C:0024H         LINE#         47
+  C:0027H         LINE#         49
+  -------         ENDPROC       MAIN
+  -------         PROC          ADC_ISR
+  C:00BAH         LINE#         55
+  C:00C7H         LINE#         57
+  C:00CAH         LINE#         59
+  C:00CFH         LINE#         60
+  C:00D4H         LINE#         65
+  C:00E0H         LINE#         66
+  C:00E6H         LINE#         67
+  -------         ENDPROC       ADC_ISR
+  -------         PROC          INITADC
+  C:00F1H         LINE#         72
+  C:00F1H         LINE#         73
+  C:00F1H         LINE#         74
+  C:00F4H         LINE#         75
+  C:00F7H         LINE#         76
+  C:00FDH         LINE#         77
+  -------         ENDPROC       INITADC
+  -------         PROC          INITUART
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:42:48  PAGE 3
+
+
+  C:0104H         LINE#         83
+  C:0104H         LINE#         84
+  C:0104H         LINE#         85
+  C:0107H         LINE#         86
+  C:010AH         LINE#         87
+  C:0110H         LINE#         88
+  C:0112H         LINE#         89
+  -------         ENDPROC       INITUART
+  -------         PROC          _SENDDATA
+  D:0007H         SYMBOL        dat
+  C:0113H         LINE#         96
+  C:0113H         LINE#         97
+  C:0113H         LINE#         98
+  C:0116H         LINE#         99
+  C:0118H         LINE#         100
+  C:011AH         LINE#         101
+  -------         ENDPROC       _SENDDATA
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        n
+  -------         DO            
+  D:0004H         SYMBOL        x
+  -------         ENDDO         
+  C:0003H         LINE#         106
+  C:0003H         LINE#         107
+  C:0003H         LINE#         110
+  C:000DH         LINE#         111
+  C:000DH         LINE#         112
+  C:0011H         LINE#         113
+  C:001DH         LINE#         114
+  C:001DH         LINE#         115
+  -------         ENDPROC       _DELAY
+  -------         ENDMOD        ADC
+
+Program Size: data=18.0 xdata=0 code=285
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

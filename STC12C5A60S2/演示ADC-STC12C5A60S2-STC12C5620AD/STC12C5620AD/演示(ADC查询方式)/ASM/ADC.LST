@@ -1,0 +1,201 @@
+A51 MACRO ASSEMBLER  ADC                                                                  07/05/2010 14:59:54 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN ADC.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE ADC.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;/*------------------------------------------------------------------*/
+                       2     ;/* --- STC MCU International Limited -------------------------------*/
+                       3     ;/* --- STC 1T Series MCU A/D Conversion Demo -----------------------*/
+                       4     ;/* --- Mobile: (86)13922805190 -------------- ----------------------*/
+                       5     ;/* --- Fax: 86-755-82944243 ----------------------------------------*/
+                       6     ;/* --- Tel: 86-755-82948412 ----------------------------------------*/
+                       7     ;/* --- Web: www.STCMCU.com -----------------------------------------*/
+                       8     ;/* If you want to use the program or the program referenced in the  */
+                       9     ;/* article, please specify in which data and procedures from STC    */
+                      10     ;/*------------------------------------------------------------------*/
+                      11     
+                      12     ;/*Declare SFR associated with the ADC */
+  00C5                13     ADC_CONTR   EQU 0C5H            ;ADC control register
+  00C6                14     ADC_RES     EQU 0C6H            ;ADC high 8-bit result register
+  00BE                15     ADC_LOW2    EQU 0BEH            ;ADC low 2-bit result register
+  0091                16     P1M0        EQU 091H            ;P1 mode control register0
+  0092                17     P1M1        EQU 092H            ;P1 mode control register1
+                      18     
+                      19     ;/*Define ADC operation const for ADC_CONTR*/
+  0080                20     ADC_POWER   EQU 80H             ;ADC power control bit
+  0010                21     ADC_FLAG    EQU 10H             ;ADC complete flag
+  0008                22     ADC_START   EQU 08H             ;ADC start control bit
+  0000                23     ADC_SPEEDLL EQU 00H             ;420 clocks
+  0020                24     ADC_SPEEDL  EQU 20H             ;280 clocks
+  0040                25     ADC_SPEEDH  EQU 40H             ;140 clocks
+  0060                26     ADC_SPEEDHH EQU 60H             ;70 clocks
+                      27     
+                      28     ;-----------------------------------------
+0000                  29         ORG   0000H
+0000 020100           30         LJMP  MAIN
+                      31     ;-----------------------------------------
+0100                  32         ORG   0100H
+0100                  33     MAIN:
+0100 120161           34         LCALL INIT_UART             ;Init UART, use to show ADC result
+0103 12014D           35         LCALL INIT_ADC              ;Init ADC sfr
+                      36     ;-------------------------------
+0106                  37     NEXT:
+0106 7400             38         MOV   A,#0
+0108 120130           39         LCALL SHOW_RESULT           ;Show channel0 result
+010B 7401             40         MOV   A,#1
+010D 120130           41         LCALL SHOW_RESULT           ;Show channel1 result
+0110 7402             42         MOV   A,#2
+0112 120130           43         LCALL SHOW_RESULT           ;Show channel2 result
+0115 7403             44         MOV   A,#3
+0117 120130           45         LCALL SHOW_RESULT           ;Show channel3 result
+011A 7404             46         MOV   A,#4
+011C 120130           47         LCALL SHOW_RESULT           ;Show channel4 result
+011F 7405             48         MOV   A,#5
+0121 120130           49         LCALL SHOW_RESULT           ;Show channel5 result
+0124 7406             50         MOV   A,#6
+0126 120130           51         LCALL SHOW_RESULT           ;Show channel6 result
+0129 7407             52         MOV   A,#7
+012B 120130           53         LCALL SHOW_RESULT           ;Show channel7 result
+                      54     
+012E 80D6             55         SJMP  NEXT
+                      56     
+                      57     ;/*----------------------------
+                      58     ;Send ADC result to UART
+A51 MACRO ASSEMBLER  ADC                                                                  07/05/2010 14:59:54 PAGE     2
+
+                      59     ;Input: ACC (ADC channel NO.)
+                      60     ;Output:-
+                      61     ;----------------------------*/
+0130                  62     SHOW_RESULT:
+0130 120170           63         LCALL SEND_DATA             ;Show Channel NO.
+0133 12013A           64         LCALL GET_ADC_RESULT        ;Get high 8-bit ADC result
+0136 120170           65         LCALL SEND_DATA             ;Show result
+                      66     
+                      67     ;//if you want show 10-bit result, uncomment next 2 lines
+                      68     ;    MOV   A,ADC_LOW2            ;Get low 2-bit ADC result
+                      69     ;    LCALL SEND_DATA             ;Show result
+0139 22               70         RET
+                      71     
+                      72     
+                      73     ;/*----------------------------
+                      74     ;Read ADC conversion result
+                      75     ;Input: ACC (ADC channel NO.)
+                      76     ;Output:ACC (ADC result)
+                      77     ;----------------------------*/
+013A                  78     GET_ADC_RESULT:
+013A 4488             79         ORL   A,#ADC_POWER | ADC_SPEEDLL | ADC_START
+013C F5C5             80         MOV   ADC_CONTR,A           ;Start A/D conversion
+013E 00               81         NOP                         ;Must wait before inquiry
+013F 00               82         NOP
+0140 00               83         NOP
+0141 00               84         NOP
+0142                  85     WAIT:
+0142 E5C5             86         MOV   A,ADC_CONTR           ;Wait complete flag
+0144 30E4FB           87         JNB   ACC.4,WAIT            ;ADC_FLAG(ADC_CONTR.4)
+0147 53C5EF           88         ANL   ADC_CONTR,#NOT ADC_FLAG ;Clear ADC_FLAG
+014A E5C6             89         MOV   A,ADC_RES             ;Return ADC result
+014C 22               90         RET
+                      91     
+                      92     ;/*----------------------------
+                      93     ;Initial ADC sfr
+                      94     ;----------------------------*/
+014D                  95     INIT_ADC:
+014D 74FF             96             MOV   A,#0FFH
+014F F590             97             MOV   P1,A
+0151 F591             98             MOV   P1M0,A
+0153 F592             99             MOV   P1M1,A                            ;Set all P1 as Open-Drain mode
+0155 75C600          100         MOV   ADC_RES,#0            ;Clear previous result
+0158 75C580          101         MOV   ADC_CONTR,#ADC_POWER | ADC_SPEEDLL
+015B 7402            102         MOV   A,#2                  ;ADC power-on and delay
+015D 120178          103         LCALL DELAY
+0160 22              104         RET
+                     105     
+                     106     ;/*----------------------------
+                     107     ;Initial UART
+                     108     ;----------------------------*/
+0161                 109     INIT_UART:
+0161 75985A          110         MOV   SCON,#5AH             ;8 bit data ,no parity bit
+0164 758920          111         MOV   TMOD,#20H             ;T1 as 8-bit auto reload
+0167 74FB            112         MOV   A,#-5                 ;Set Uart baudrate -(18432000/12/32/9600)
+0169 F58D            113         MOV   TH1,A                 ;Set T1 reload value
+016B F58B            114         MOV   TL1,A
+016D D28E            115         SETB  TR1                   ;T1 start running
+016F 22              116         RET
+                     117     
+                     118     ;/*----------------------------
+                     119     ;Send one byte data to PC
+                     120     ;Input: ACC (UART data)
+                     121     ;Output:-
+                     122     ;----------------------------*/
+0170                 123     SEND_DATA:
+0170 3099FD          124         JNB   TI,$                  ;Wait for the previous data is sent
+A51 MACRO ASSEMBLER  ADC                                                                  07/05/2010 14:59:54 PAGE     3
+
+0173 C299            125         CLR   TI                    ;Clear TI flag
+0175 F599            126         MOV   SBUF,A                ;Send current data
+0177 22              127         RET
+                     128     
+                     129     ;/*----------------------------
+                     130     ;Software delay function
+                     131     ;----------------------------*/
+0178                 132     DELAY:
+0178 FA              133         MOV   R2,A
+0179 E4              134         CLR   A
+017A F8              135         MOV   R0,A
+017B F9              136         MOV   R1,A
+017C                 137     DELAY1:
+017C D8FE            138         DJNZ  R0,DELAY1
+017E D9FC            139         DJNZ  R1,DELAY1
+0180 DAFA            140         DJNZ  R2,DELAY1
+0182 22              141         RET
+                     142     
+                     143         END
+A51 MACRO ASSEMBLER  ADC                                                                  07/05/2010 14:59:54 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+ADC_CONTR. . . . .  N NUMB   00C5H   A   
+ADC_FLAG . . . . .  N NUMB   0010H   A   
+ADC_LOW2 . . . . .  N NUMB   00BEH   A   
+ADC_POWER. . . . .  N NUMB   0080H   A   
+ADC_RES. . . . . .  N NUMB   00C6H   A   
+ADC_SPEEDH . . . .  N NUMB   0040H   A   
+ADC_SPEEDHH. . . .  N NUMB   0060H   A   
+ADC_SPEEDL . . . .  N NUMB   0020H   A   
+ADC_SPEEDLL. . . .  N NUMB   0000H   A   
+ADC_START. . . . .  N NUMB   0008H   A   
+DELAY. . . . . . .  C ADDR   0178H   A   
+DELAY1 . . . . . .  C ADDR   017CH   A   
+GET_ADC_RESULT . .  C ADDR   013AH   A   
+INIT_ADC . . . . .  C ADDR   014DH   A   
+INIT_UART. . . . .  C ADDR   0161H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT . . . . . . .  C ADDR   0106H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P1M0 . . . . . . .  N NUMB   0091H   A   
+P1M1 . . . . . . .  N NUMB   0092H   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SEND_DATA. . . . .  C ADDR   0170H   A   
+SHOW_RESULT. . . .  C ADDR   0130H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+WAIT . . . . . . .  C ADDR   0142H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

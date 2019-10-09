@@ -1,0 +1,119 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        07/05/2010  14:49:44  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ADC.obj TO ADC RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  ADC.obj (ADC)
+
+
+LINK MAP OF MODULE:  ADC (ADC)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0167H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  ADC (ADC)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADC
+  D:00E0H         SYMBOL        ACC
+  D:0020H         SYMBOL        ADCCH
+  N:00BCH         SYMBOL        ADC_CONTR
+  N:0010H         SYMBOL        ADC_FLAG
+  C:0111H         SYMBOL        ADC_ISR
+  N:00BEH         SYMBOL        ADC_LOW2
+  N:0080H         SYMBOL        ADC_POWER
+  N:00BDH         SYMBOL        ADC_RES
+  N:0040H         SYMBOL        ADC_SPEEDH
+  N:0060H         SYMBOL        ADC_SPEEDHH
+  N:0020H         SYMBOL        ADC_SPEEDL
+  N:0000H         SYMBOL        ADC_SPEEDLL
+  N:0008H         SYMBOL        ADC_START
+  C:015CH         SYMBOL        DELAY
+  C:0160H         SYMBOL        DELAY1
+  D:00A8H         SYMBOL        IE
+  C:0133H         SYMBOL        INIT_ADC
+  C:0145H         SYMBOL        INIT_UART
+  C:0100H         SYMBOL        MAIN
+  N:009DH         SYMBOL        P1ASF
+  D:00D0H         SYMBOL        PSW
+  D:0099H         SYMBOL        SBUF
+  D:0098H         SYMBOL        SCON
+  C:0154H         SYMBOL        SEND_DATA
+  D:0081H         SYMBOL        SP
+  D:008DH         SYMBOL        TH1
+  B:0098H.1       SYMBOL        TI
+  D:008BH         SYMBOL        TL1
+  D:0089H         SYMBOL        TMOD
+  B:0088H.6       SYMBOL        TR1
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:49:44  PAGE 2
+
+
+  C:0000H         LINE#         31
+  C:002BH         LINE#         34
+  C:0100H         LINE#         38
+  C:0103H         LINE#         39
+  C:0106H         LINE#         40
+  C:0109H         LINE#         41
+  C:010CH         LINE#         42
+  C:010FH         LINE#         43
+  C:0111H         LINE#         49
+  C:0113H         LINE#         50
+  C:0115H         LINE#         52
+  C:0118H         LINE#         53
+  C:011AH         LINE#         54
+  C:011DH         LINE#         55
+  C:011FH         LINE#         56
+  C:0122H         LINE#         62
+  C:0124H         LINE#         63
+  C:0126H         LINE#         64
+  C:0128H         LINE#         65
+  C:012AH         LINE#         66
+  C:012CH         LINE#         67
+  C:012EH         LINE#         68
+  C:0130H         LINE#         69
+  C:0132H         LINE#         70
+  C:0133H         LINE#         76
+  C:0136H         LINE#         77
+  C:0139H         LINE#         78
+  C:013BH         LINE#         79
+  C:013DH         LINE#         80
+  C:013FH         LINE#         81
+  C:0141H         LINE#         82
+  C:0144H         LINE#         83
+  C:0145H         LINE#         89
+  C:0148H         LINE#         90
+  C:014BH         LINE#         91
+  C:014DH         LINE#         92
+  C:014FH         LINE#         93
+  C:0151H         LINE#         94
+  C:0153H         LINE#         95
+  C:0154H         LINE#         103
+  C:0157H         LINE#         104
+  C:0159H         LINE#         105
+  C:015BH         LINE#         106
+  C:015CH         LINE#         112
+  C:015DH         LINE#         113
+  C:015EH         LINE#         114
+  C:015FH         LINE#         115
+  C:0160H         LINE#         117
+  C:0162H         LINE#         118
+  C:0164H         LINE#         119
+  C:0166H         LINE#         120
+  -------         ENDMOD        ADC
+
+Program Size: data=8.0 xdata=0 code=359
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,135 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        07/05/2010  14:59:54  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ADC.obj TO ADC RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  ADC.obj (ADC)
+
+
+LINK MAP OF MODULE:  ADC (ADC)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0183H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  ADC (ADC)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADC
+  D:00E0H         SYMBOL        ACC
+  N:00C5H         SYMBOL        ADC_CONTR
+  N:0010H         SYMBOL        ADC_FLAG
+  N:00BEH         SYMBOL        ADC_LOW2
+  N:0080H         SYMBOL        ADC_POWER
+  N:00C6H         SYMBOL        ADC_RES
+  N:0040H         SYMBOL        ADC_SPEEDH
+  N:0060H         SYMBOL        ADC_SPEEDHH
+  N:0020H         SYMBOL        ADC_SPEEDL
+  N:0000H         SYMBOL        ADC_SPEEDLL
+  N:0008H         SYMBOL        ADC_START
+  C:0178H         SYMBOL        DELAY
+  C:017CH         SYMBOL        DELAY1
+  C:013AH         SYMBOL        GET_ADC_RESULT
+  C:014DH         SYMBOL        INIT_ADC
+  C:0161H         SYMBOL        INIT_UART
+  C:0100H         SYMBOL        MAIN
+  C:0106H         SYMBOL        NEXT
+  D:0090H         SYMBOL        P1
+  N:0091H         SYMBOL        P1M0
+  N:0092H         SYMBOL        P1M1
+  D:0099H         SYMBOL        SBUF
+  D:0098H         SYMBOL        SCON
+  C:0170H         SYMBOL        SEND_DATA
+  C:0130H         SYMBOL        SHOW_RESULT
+  D:008DH         SYMBOL        TH1
+  B:0098H.1       SYMBOL        TI
+  D:008BH         SYMBOL        TL1
+  D:0089H         SYMBOL        TMOD
+  B:0088H.6       SYMBOL        TR1
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:59:54  PAGE 2
+
+
+  C:0142H         SYMBOL        WAIT
+  C:0000H         LINE#         30
+  C:0100H         LINE#         34
+  C:0103H         LINE#         35
+  C:0106H         LINE#         38
+  C:0108H         LINE#         39
+  C:010BH         LINE#         40
+  C:010DH         LINE#         41
+  C:0110H         LINE#         42
+  C:0112H         LINE#         43
+  C:0115H         LINE#         44
+  C:0117H         LINE#         45
+  C:011AH         LINE#         46
+  C:011CH         LINE#         47
+  C:011FH         LINE#         48
+  C:0121H         LINE#         49
+  C:0124H         LINE#         50
+  C:0126H         LINE#         51
+  C:0129H         LINE#         52
+  C:012BH         LINE#         53
+  C:012EH         LINE#         55
+  C:0130H         LINE#         63
+  C:0133H         LINE#         64
+  C:0136H         LINE#         65
+  C:0139H         LINE#         70
+  C:013AH         LINE#         79
+  C:013CH         LINE#         80
+  C:013EH         LINE#         81
+  C:013FH         LINE#         82
+  C:0140H         LINE#         83
+  C:0141H         LINE#         84
+  C:0142H         LINE#         86
+  C:0144H         LINE#         87
+  C:0147H         LINE#         88
+  C:014AH         LINE#         89
+  C:014CH         LINE#         90
+  C:014DH         LINE#         96
+  C:014FH         LINE#         97
+  C:0151H         LINE#         98
+  C:0153H         LINE#         99
+  C:0155H         LINE#         100
+  C:0158H         LINE#         101
+  C:015BH         LINE#         102
+  C:015DH         LINE#         103
+  C:0160H         LINE#         104
+  C:0161H         LINE#         110
+  C:0164H         LINE#         111
+  C:0167H         LINE#         112
+  C:0169H         LINE#         113
+  C:016BH         LINE#         114
+  C:016DH         LINE#         115
+  C:016FH         LINE#         116
+  C:0170H         LINE#         124
+  C:0173H         LINE#         125
+  C:0175H         LINE#         126
+  C:0177H         LINE#         127
+  C:0178H         LINE#         133
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/05/2010  14:59:54  PAGE 3
+
+
+  C:0179H         LINE#         134
+  C:017AH         LINE#         135
+  C:017BH         LINE#         136
+  C:017CH         LINE#         138
+  C:017EH         LINE#         139
+  C:0180H         LINE#         140
+  C:0182H         LINE#         141
+  -------         ENDMOD        ADC
+
+Program Size: data=8.0 xdata=0 code=387
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

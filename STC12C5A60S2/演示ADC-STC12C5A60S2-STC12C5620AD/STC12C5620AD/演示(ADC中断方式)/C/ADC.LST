@@ -1,0 +1,144 @@
+C51 COMPILER V8.02   ADC                                                                   07/05/2010 15:01:44 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE ADC
+OBJECT MODULE PLACED IN ADC.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ADC.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*------------------------------------------------------------------*/
+   2          /* --- STC MCU International Limited -------------------------------*/
+   3          /* --- STC 1T Series MCU A/D Conversion Demo -----------------------*/
+   4          /* --- Mobile: (86)13922805190 -------------------------------------*/
+   5          /* --- Fax: 86-755-82944243 ----------------------------------------*/
+   6          /* --- Tel: 86-755-82948412 ----------------------------------------*/
+   7          /* --- Web: www.STCMCU.com -----------------------------------------*/
+   8          /* If you want to use the program or the program referenced in the  */
+   9          /* article, please specify in which data and procedures from STC    */
+  10          /*------------------------------------------------------------------*/
+  11          
+  12          #include "reg51.h"
+  13          #include "intrins.h"
+  14          
+  15          #define FOSC    18432000L
+  16          #define BAUD    9600
+  17          
+  18          typedef unsigned char BYTE;
+  19          typedef unsigned int WORD;
+  20          
+  21          /*Declare SFR associated with the ADC */
+  22          sfr ADC_CONTR   =   0xC5;           //ADC control register
+  23          sfr ADC_RES     =   0xC6;           //ADC high 8-bit result register
+  24          sfr ADC_LOW2    =   0xBE;           //ADC low 2-bit result register
+  25          sfr P1M0        =   0x91;           //P1 mode control register0
+  26          sfr P1M1        =   0x92;           //P1 mode control register1
+  27          
+  28          /*Define ADC operation const for ADC_CONTR*/
+  29          #define ADC_POWER   0x80            //ADC power control bit
+  30          #define ADC_FLAG    0x10            //ADC complete flag
+  31          #define ADC_START   0x08            //ADC start control bit
+  32          #define ADC_SPEEDLL 0x00            //420 clocks
+  33          #define ADC_SPEEDL  0x20            //280 clocks
+  34          #define ADC_SPEEDH  0x40            //140 clocks
+  35          #define ADC_SPEEDHH 0x60            //70 clocks
+  36          
+  37          void InitUart();
+  38          void SendData(BYTE dat);
+  39          void Delay(WORD n);
+  40          void InitADC();
+  41          
+  42          BYTE ch = 0;                        //ADC channel NO.
+  43          
+  44          void main()
+  45          {
+  46   1          InitUart();                     //Init UART, use to show ADC result
+  47   1          InitADC();                      //Init ADC sfr
+  48   1          IE = 0xa0;                      //Enable ADC interrupt and Open master interrupt switch
+  49   1                                          //Start A/D conversion
+  50   1          while (1);
+  51   1      }
+  52          
+  53          /*----------------------------
+  54          ADC interrupt service routine
+  55          ----------------------------*/
+C51 COMPILER V8.02   ADC                                                                   07/05/2010 15:01:44 PAGE 2   
+
+  56          void adc_isr() interrupt 5 using 1
+  57          {
+  58   1          ADC_CONTR &= !ADC_FLAG;         //Clear ADC interrupt flag
+  59   1      
+  60   1          SendData(ch);                   //Show Channel NO.
+  61   1          SendData(ADC_RES);              //Get ADC high 8-bit result and Send to UART
+  62   1      
+  63   1      //if you want show 10-bit result, uncomment next line
+  64   1      //    SendData(ADC_LOW2);             //Show ADC low 2-bit result
+  65   1          
+  66   1          if (++ch > 7) ch = 0;           //switch to next channel
+  67   1          ADC_CONTR = ADC_POWER | ADC_SPEEDLL | ADC_START | ch;
+  68   1      }
+  69          
+  70          /*----------------------------
+  71          Initial ADC sfr
+  72          ----------------------------*/
+  73          void InitADC()
+  74          {
+  75   1          P1 = P1M0 = P1M1 = 0xff;        //Set all P1 as Open-Drain mode
+  76   1          ADC_RES = 0;                    //Clear previous result
+  77   1          ADC_CONTR = ADC_POWER | ADC_SPEEDLL | ADC_START | ch;
+  78   1          Delay(2);                       //ADC power-on delay and Start A/D conversion
+  79   1      }
+  80          
+  81          /*----------------------------
+  82          Initial UART
+  83          ----------------------------*/
+  84          void InitUart()
+  85          {
+  86   1          SCON = 0x5a;                    //8 bit data ,no parity bit
+  87   1          TMOD = 0x20;                    //T1 as 8-bit auto reload
+  88   1          TH1 = TL1 = -(FOSC/12/32/BAUD); //Set Uart baudrate
+  89   1          TR1 = 1;                        //T1 start running
+  90   1      }
+  91          
+  92          /*----------------------------
+  93          Send one byte data to PC
+  94          Input: dat (UART data)
+  95          Output:-
+  96          ----------------------------*/
+  97          void SendData(BYTE dat)
+  98          {
+  99   1          while (!TI);                    //Wait for the previous data is sent
+ 100   1          TI = 0;                         //Clear TI flag
+ 101   1          SBUF = dat;                     //Send current data
+ 102   1      }
+ 103          
+ 104          /*----------------------------
+ 105          Software delay function
+ 106          ----------------------------*/
+ 107          void Delay(WORD n)
+ 108          {
+ 109   1          WORD x;
+ 110   1      
+ 111   1          while (n--)
+ 112   1          {
+ 113   2              x = 5000;
+ 114   2              while (x--);
+ 115   2          }
+ 116   1      }
+ 117          
+C51 COMPILER V8.02   ADC                                                                   07/05/2010 15:01:44 PAGE 3   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    141    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
