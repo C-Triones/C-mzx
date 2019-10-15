@@ -179,9 +179,26 @@ void app_back_Two(void){
 		  rescueRobotState.moveWays = STOP;
 			temp++;
 			break;
-		}
+		}		
 		case 10:{
-		  calibrationGostraight(RIGHT);
+			rescueRobotState.moveWays= GO_STRAIGHT;
+		  vTaskDelay(700);
+			temp++;
+			break;
+		}	
+				case 11:{
+		  rescueRobotState.moveWays = STOP;
+			temp++;
+			break;
+		}
+		case 12:{
+			 calibrationFinish = app_calibration(RIGHT);
+			if(calibrationFinish == CALIBRATION_FINISHED){
+			temp++;
+			}
+		}
+		case 13:{
+		  calibrationGostraight(LEFT);
 			if(SRF_04_Data1.getDistance <30 && SRF_04_Data2.getDistance <30){
 			temp=99;
 		}
@@ -288,7 +305,7 @@ void app_back_Four(void){
 		}
 		case 4:{
 				 rescueRobotState.moveWays= GO_STRAIGHT;
-				 vTaskDelay(1800);
+				 vTaskDelay(1900);
 						temp++;
 					break;
 				}
@@ -330,7 +347,7 @@ void app_RoomOne(void){
 		case 1:{
 			rescueRobotState.moveWays = GO_STRAIGHT;
 			calibrationGostraight(RIGHT);
-			if(SRF_04_Data1.getDistance <24 && SRF_04_Data2.getDistance <24){
+			if(SRF_04_Data1.getDistance <19 && SRF_04_Data2.getDistance <19){
 				rescueRobotState.workStep++;
 			}break;
 		}
@@ -357,7 +374,7 @@ void app_RoomOne(void){
 		}
 		case 6:{
 			calibrationGostraight(RIGHT);
-			if(SRF_04_Data1.getDistance <= 76&& SRF_04_Data2.getDistance <= 76){
+			if(SRF_04_Data1.getDistance <= 70&& SRF_04_Data2.getDistance <= 70){
 				rescueRobotState.moveWays = STOP;
 				rescueRobotState.workStep++;
 			}break;
@@ -389,18 +406,19 @@ void app_RoomTwo(void){
 				rescueRobotState.workStep++;
 			}break;
 		}
-			case 1:{
-			  rescueRobotState.moveWays =GO_STRAIGHT;
-				rescueRobotState.workStep++;
-				break;		
-				}				
-			case 2:{
+			case 1:{ 
+				calibrationGostraight(LEFT);
 				if(SRF_04_Data1.getDistance <=22 && SRF_04_Data2.getDistance <=22){
-			 rescueRobotState.moveWays =REVERSE_RIGHT_TURN_90;
-				rescueRobotState.workStep ++;
-				}
+				rescueRobotState.workStep ++;		
+				}	
 				break;
-			}
+			}				
+			case 2:{
+			 rescueRobotState.moveWays =REVERSE_RIGHT_TURN_90;
+				rescueRobotState.workStep ++;	
+				break;
+				}
+	
 			case 3:{
 				rescueRobotState.moveWays = STOP;
 				rescueRobotState.workStep++;
@@ -415,7 +433,7 @@ void app_RoomTwo(void){
 	   	}
 		 case 5:{
 				rescueRobotState.moveWays= GO_STRAIGHT;
-			  vTaskDelay(1800);
+			  vTaskDelay(1900);
 				rescueRobotState.workStep++;
 			break;
 		 }
@@ -483,7 +501,7 @@ void app_RoomThree(void){
 		}
 		case 1:{
 		 calibrationGostraight(LEFT);
-			if(SRF_04_Data1.getDistance <=17 && SRF_04_Data2.getDistance <=17){
+			if(SRF_04_Data1.getDistance <=20 && SRF_04_Data2.getDistance <=20){
 				rescueRobotState.workStep++;
 			}
 			break;
